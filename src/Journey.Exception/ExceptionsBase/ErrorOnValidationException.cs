@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 namespace Journey.Exception.ExceptionsBase;
 public class ErrorOnValidationException : JourneyException
 {
-    public ErrorOnValidationException(string message) : base(message)
+    private readonly IList<string> _errors;
+
+    public ErrorOnValidationException(IList<string> message) : base(string.Empty)
     {
+        _errors = message;
+    }
+
+    public override IList<string> GetErrorMessages()
+    {
+        return _errors;
     }
 
     public override HttpStatusCode GetStatusCode()
